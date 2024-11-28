@@ -1,8 +1,10 @@
 import flet as ft
-from designer import Field, color, but
+from designer import Field, color, button
+import bcrypt
 
 class Login(ft.Column):
     def __init__(self, page:ft.Page=None):
+        self.page = page
         self.login = Field(_label_="Login"),
         self.password = Field(_label_="Password", _password_=True)
         super().__init__(
@@ -30,8 +32,13 @@ class Login(ft.Column):
                 ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        but(text="Entry")
+                        button(text="Enter",on_click=self.enter_go_to_next_page)
                     ]
                 )
             ]
         )
+    def enter_go_to_next_page(self,e):
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(self.password.value.encode('utf-8'), salt)
+        print(hashed)
+        return hashed

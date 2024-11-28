@@ -1,4 +1,5 @@
 import flet as ft
+from flet_core.types import OptionalControlEventCallable
 
 color = [
     "#f0ece2",
@@ -23,12 +24,13 @@ class Field(ft.TextField):
             ),
         )
         
-class but(ft.ElevatedButton):
-    def __init__(self,text:str=""):
+class button(ft.ElevatedButton):
+    def __init__(self,text:str="",on_click: OptionalControlEventCallable = None,):
         super().__init__(
             color=color[3],
             bgcolor=color[1],
             text=text,
+            on_click=on_click,
             style=ft.ButtonStyle(
                 overlay_color=color[4],
                 text_style=ft.TextStyle(
